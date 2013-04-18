@@ -149,7 +149,7 @@ int sendACKWaitData(SocketUDP *socket, tftp_packet_ACK *packetAck, tftp_packet_D
 }
 
 /**
- *Envoie d'une requete de lecture et attente d'un paquet data.
+ *Envoie d'une requete de lecture et attend un paquet data.
  */
 int sendRRQWaitData(SocketUDP *socket, tftp_packet_RRQ *packetRrq, tftp_packet_DATA *packetData, char *adresse, int port){
   int i = 0;
@@ -159,7 +159,7 @@ int sendRRQWaitData(SocketUDP *socket, tftp_packet_RRQ *packetRrq, tftp_packet_D
 
   while(i < 10 && !recu) {
     send_packet((tftp_packet *)&packetRrq, socket,adresse, port);
-size_t packetLength = sizeof(packetData);
+	size_t packetLength = sizeof(packetData);
     receive_with_timeout(socket, adresseRecu, portRecu, 10, (tftp_packet *)&packetData, &packetLength);
     if(getType((tftp_packet *)&packetData) == 03) {
       recu = true;
